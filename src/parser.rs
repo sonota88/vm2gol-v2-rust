@@ -213,25 +213,7 @@ fn _parse_expr_factor() -> NodeId {
 }
 
 fn parse_expr() -> NodeId {
-    let t = peek(0);
-
-    let expr_l_node_id;
-
-    if t.kind == "sym" {
-        consume("(");
-        expr_l_node_id = parse_expr();
-        consume(")");
-    } else if t.kind == "int" {
-        inc_pos();
-        let n: i32 = t.value.parse().unwrap();
-        expr_l_node_id = Node::new_int(n);
-    } else if t.kind == "ident" {
-        inc_pos();
-        expr_l_node_id = Node::new_str(String::from(&t.value));
-    } else {
-        panic!("not supported: {:?}", t);
-    }
-
+    let expr_l_node_id = _parse_expr_factor();
     return parse_expr_right(expr_l_node_id);
 }
 
