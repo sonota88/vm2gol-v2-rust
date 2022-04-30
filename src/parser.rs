@@ -192,6 +192,13 @@ fn parse_expr_right(expr_l_node_id: NodeId) -> NodeId {
     }
 }
 
+fn is_binary_op(t: &Token) -> bool {
+    t.value == "+"
+    || t.value == "*"
+    || t.value == "=="
+    || t.value == "!="
+}
+
 fn _parse_expr_factor() -> NodeId {
     let t = peek(0);
 
@@ -213,8 +220,36 @@ fn _parse_expr_factor() -> NodeId {
 }
 
 fn parse_expr() -> NodeId {
-    let expr_l_node_id = _parse_expr_factor();
-    return parse_expr_right(expr_l_node_id);
+    let mut expr = _parse_expr_factor();
+
+    while is_binary_op(peek(0)) {
+        let op;
+        if peek(0).value == "+" {
+            op = "+"
+        } else if peek(0).value == "*" {
+            op = "*"
+        } else if peek(0).value == "*" {
+            op = "*"
+        } else if peek(0).value == "==" {
+            op = "eq"
+        } else if peek(0).value == "!=" {
+            op = "neq"
+        } else {
+            panic!("not supported: {:?}", peek(0));
+        }
+        inc_pos();
+
+        let expr_r = _parse_expr_factor();
+
+        let mut list = List::new();
+        list.add_str(op);
+        list.add_node(expr);
+        list.add_node(expr_r);
+
+        expr = Node::new_list(list);
+    }
+
+    return expr;
 }
 
 fn parse_set() -> List {
