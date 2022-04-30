@@ -361,6 +361,18 @@ fn parse_vm_comment() -> List {
     return stmt;
 }
 
+fn parse_debug() -> List {
+    consume("_debug");
+    consume("(");
+    consume(")");
+    consume(";");
+
+    let mut stmt = List::new();
+    stmt.add_str("_debug");
+
+    return stmt;
+}
+
 fn parse_stmt() -> List {
     let peek_value = &peek(0).value;
 
@@ -372,6 +384,7 @@ fn parse_stmt() -> List {
         "while" => parse_while(),
         "case" => parse_case(),
         "_cmt" => parse_vm_comment(),
+        "_debug" => parse_debug(),
         _ => {
             let mut i = 0;
             while i < 20 {

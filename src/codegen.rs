@@ -294,6 +294,10 @@ fn gen_vm_comment(stmt: &List) {
     println!("  _cmt {}", stmt.get_str(1).replace(" ", "~"));
 }
 
+fn gen_debug() {
+    println!("  _debug");
+}
+
 fn gen_stmt(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
     let head = stmt.get_str(0);
 
@@ -305,6 +309,7 @@ fn gen_stmt(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
         "while" => gen_while(fn_arg_names, lvar_names, stmt),
         "case" => gen_case(fn_arg_names, lvar_names, stmt),
         "_cmt" => gen_vm_comment(stmt),
+        "_debug" => gen_debug(),
         _ => panic!("{:?}", stmt)
     }
 }

@@ -72,7 +72,7 @@ fn print_token(kind: &str, input: &Chars, pos: usize, size: usize, lineno: usize
 fn is_kw(value: &str) -> bool {
     match value {
         "func" | "var" | "set" | "call_set" | "call" |
-        "return" | "case" | "while" | "_cmt" => {
+        "return" | "case" | "while" | "_cmt" | "_debug" => {
             true
         },
         _ => {
