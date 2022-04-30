@@ -66,7 +66,7 @@ fn match_comment(input: &Chars, start_pos: usize) -> usize {
 
 fn print_token(kind: &str, input: &Chars, pos: usize, size: usize) {
     let value = substr(input, pos, pos + size);
-    println!("{}:{}", kind, value);
+    println!("[1, \"{}\", \"{}\"]", kind, value); // TODO line number
 }
 
 fn is_kw(value: &str) -> bool {

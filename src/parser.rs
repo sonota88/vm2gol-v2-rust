@@ -2,7 +2,6 @@ use super::json;
 
 use super::utils;
 use utils::char_index;
-use utils::substr;
 use utils::subchars;
 
 use super::types;
@@ -27,13 +26,16 @@ fn read_tokens() {
 
     while pos < chars.len() {
         let line_size = char_index(&chars, '\n', pos).unwrap() - pos;
-        let line = subchars(&chars, pos, pos + line_size);
-        let sep_pos = char_index(&line, ':', 0).unwrap();
-        let kind = substr(&line, 0, sep_pos);
-        let value = substr(&line, sep_pos + 1, line_size);
+        let line_chars = subchars(&chars, pos, pos + line_size);
+        let line = line_chars.iter().cloned().collect::<String>();
+
+        let list = json::parse(line.as_str());
+
+        let kind = list.get_str(1);
+        let value = list.get_str(2);
 
         unsafe {
-            TOKENS.push(Token::new(kind.as_str(), value.as_str()));
+            TOKENS.push(Token::new(kind, value));
         }
 
         pos += line_size + 1;
