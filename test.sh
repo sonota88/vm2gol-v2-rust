@@ -89,8 +89,9 @@ test_json_nn() {
   echo "case ${nn}"
 
   local input_file="${TEST_COMMON_DIR}/json/${nn}.json"
-  local temp_json_file="${TEMP_DIR}/test.json"
   local exp_tokens_file="${TEST_COMMON_DIR}/json/${nn}.json"
+
+  local temp_json_file="${TEMP_DIR}/test.json"
 
   run_test_json $input_file > $temp_json_file
   if [ $? -ne 0 ]; then
@@ -123,8 +124,9 @@ test_lex_nn() {
   echo "case ${nn}"
 
   local input_file="${TEST_COMMON_DIR}/lex/${nn}.vg.txt"
-  local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
   local exp_tokens_file="${TEST_COMMON_DIR}/lex/exp_${nn}.txt"
+
+  local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
 
   run_lex $input_file > $temp_tokens_file
   if [ $? -ne 0 ]; then
@@ -157,9 +159,10 @@ test_parse_nn() {
   echo "case ${nn}"
 
   local input_file="${TEST_COMMON_DIR}/parse/${nn}.vg.txt"
+  local exp_vgt_file="${TEST_COMMON_DIR}/parse/exp_${nn}.vgt.json"
+
   local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
   local temp_vgt_file="${TEMP_DIR}/test.vgt.json"
-  local exp_vgt_file="${TEST_COMMON_DIR}/parse/exp_${nn}.vgt.json"
 
   echo "  lex" >&2
   run_lex $input_file > $temp_tokens_file
@@ -220,11 +223,12 @@ test_compile_nn() {
   fi
 
   local input_file="${TEST_COMMON_DIR}/compile/${nn}.vg.txt"
+  local exp_vga_file="${TEST_COMMON_DIR}/compile/exp_${nn}.vga.txt"
+
   local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
   local temp_vgt_file="${TEMP_DIR}/test.vgt.json"
   local temp_vga_file="${TEMP_DIR}/test.vga.txt"
   local local_errs=""
-  local exp_vga_file="${TEST_COMMON_DIR}/compile/exp_${nn}.vga.txt"
 
   echo "  lex" >&2
   run_lex $input_file > $temp_tokens_file
