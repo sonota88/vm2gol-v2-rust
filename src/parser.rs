@@ -50,7 +50,7 @@ fn peek(offset: usize) -> &'static Token { // '
     }
 }
 
-fn inc_pos() {
+fn incr_pos() {
     unsafe {
         POS += 1;
     }
@@ -67,7 +67,7 @@ fn consume(value: &str) {
         panic!("unexpected token ({})", peek(0).value);
     }
 
-    inc_pos();
+    incr_pos();
 }
 
 // --------------------------------
@@ -76,11 +76,11 @@ fn _parse_arg() -> NodeId {
     let t = peek(0);
 
     if t.kind == "int" {
-        inc_pos();
+        incr_pos();
         let n: i32 = t.value.parse().unwrap();
         return Node::new_int(n);
     } else if t.kind == "ident" {
-        inc_pos();
+        incr_pos();
         let s = &t.value;
         return Node::new_str(String::from(s));
     } else {
@@ -107,7 +107,7 @@ fn parse_args() -> List {
 
 fn _parse_var_declare() -> List {
     let var_name = &peek(0).value;
-    inc_pos();
+    incr_pos();
 
     consume(";");
 
@@ -120,7 +120,7 @@ fn _parse_var_declare() -> List {
 
 fn _parse_var_init() -> List {
     let var_name = &peek(0).value;
-    inc_pos();
+    incr_pos();
 
     consume("=");
 
@@ -164,12 +164,12 @@ fn _parse_expr_factor() -> NodeId {
             expr
         },
         "int" => {
-            inc_pos();
+            incr_pos();
             let n: i32 = t.value.parse().unwrap();
             Node::new_int(n)
         },
         "ident" => {
-            inc_pos();
+            incr_pos();
             Node::new_str(String::from(&t.value))
         },
         _ => panic!("not supported: {:?}", t)
@@ -188,7 +188,7 @@ fn parse_expr() -> NodeId {
                 "!=" => "neq",
                 _ => panic!("not supported: {:?}", peek(0))
             };
-        inc_pos();
+        incr_pos();
 
         let expr_r = _parse_expr_factor();
 
@@ -206,7 +206,7 @@ fn parse_expr() -> NodeId {
 fn parse_set() -> List {
     consume("set");
 
-    let t = peek(0); inc_pos();
+    let t = peek(0); incr_pos();
     let var_name = &(t.value);
 
     consume("=");
@@ -224,7 +224,7 @@ fn parse_set() -> List {
 }
 
 fn parse_funcall() -> List {
-    let t = peek(0); inc_pos();
+    let t = peek(0); incr_pos();
     let fn_name = &t.value;
 
     consume("(");
@@ -255,7 +255,7 @@ fn parse_call() -> List {
 fn parse_call_set() -> List {
     consume("call_set");
 
-    let t = peek(0); inc_pos();
+    let t = peek(0); incr_pos();
     let var_name = &t.value;
 
     consume("=");
@@ -349,7 +349,7 @@ fn parse_vm_comment() -> List {
     consume("(");
 
     let comment = &peek(0).value;
-    inc_pos();
+    incr_pos();
 
     consume(")");
     consume(";");
@@ -397,10 +397,10 @@ fn parse_stmts() -> List {
 fn parse_func() -> List {
     let mut func = List::new();
 
-    inc_pos();
+    incr_pos();
 
     let fn_name = peek(0).value.as_str();
-    inc_pos();
+    incr_pos();
 
     consume("(");
     let fn_args = parse_args();
