@@ -178,20 +178,14 @@ fn parse_expr() -> NodeId {
     let mut expr = _parse_expr_factor();
 
     while is_binary_op(peek(0)) {
-        let op;
-        if peek(0).value == "+" {
-            op = "+"
-        } else if peek(0).value == "*" {
-            op = "*"
-        } else if peek(0).value == "*" {
-            op = "*"
-        } else if peek(0).value == "==" {
-            op = "eq"
-        } else if peek(0).value == "!=" {
-            op = "neq"
-        } else {
-            panic!("not supported: {:?}", peek(0));
-        }
+        let op =
+            match peek(0).value.as_str() {
+                "+" => "+",
+                "*" => "*",
+                "==" => "eq",
+                "!=" => "neq",
+                _ => panic!("not supported: {:?}", peek(0))
+            };
         inc_pos();
 
         let expr_r = _parse_expr_factor();
