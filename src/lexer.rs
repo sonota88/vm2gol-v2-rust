@@ -64,9 +64,9 @@ fn match_comment(input: &Chars, start_pos: usize) -> usize {
     }
 }
 
-fn print_token(kind: &str, input: &Chars, pos: usize, size: usize) {
+fn print_token(kind: &str, input: &Chars, pos: usize, size: usize, lineno: usize) {
     let value = substr(input, pos, pos + size);
-    println!("[1, \"{}\", \"{}\"]", kind, value); // TODO line number
+    println!("[{}, \"{}\", \"{}\"]", lineno, kind, value);
 }
 
 fn is_kw(value: &str) -> bool {
@@ -91,26 +91,26 @@ pub fn tokenize() {
     while pos < chars.len() {
         if 0 < match_sym(&chars, pos) {
             let size = match_sym(&chars, pos);
-            print_token("sym", &chars, pos, size);
+            print_token("sym", &chars, pos, size, lineno);
             pos += size;
         } else if 0 < match_comment(&chars, pos) {
             let size = match_comment(&chars, pos);
             pos += size;
         } else if 0 < match_int(&chars, pos) {
             let size = match_int(&chars, pos);
-            print_token("int", &chars, pos, size);
+            print_token("int", &chars, pos, size, lineno);
             pos += size;
         } else if 0 < match_str(&chars, pos) {
             let size = match_str(&chars, pos);
-            print_token("str", &chars, pos + 1, size);
+            print_token("str", &chars, pos + 1, size, lineno);
             pos += size + 2;
         } else if 0 < match_ident(&chars, pos) {
             let size = match_ident(&chars, pos);
             let value = substr(&chars, pos, pos + size);
             if is_kw(&value) {
-                print_token("kw", &chars, pos, size);
+                print_token("kw", &chars, pos, size, lineno);
             } else {
-                print_token("ident", &chars, pos, size);
+                print_token("ident", &chars, pos, size, lineno);
             }
             pos += size;
         } else {
