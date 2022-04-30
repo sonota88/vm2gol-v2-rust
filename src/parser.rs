@@ -144,54 +144,6 @@ fn parse_var() -> List {
     }
 }
 
-fn parse_expr_right(expr_l_node_id: NodeId) -> NodeId {
-    let t = peek(0);
-
-    if t.value == ";" || t.value == ")" {
-        return expr_l_node_id;
-    }
-
-    if t.value == "+" {
-        inc_pos();
-        let expr_r_node_id = parse_expr();
-
-        let mut list = List::new();
-        list.add_str("+");
-        list.add_node(expr_l_node_id);
-        list.add_node(expr_r_node_id);
-        return Node::new_list(list);
-    } else if t.value == "*" {
-        inc_pos();
-        let expr_r_node_id = parse_expr();
-
-        let mut list = List::new();
-        list.add_str("*");
-        list.add_node(expr_l_node_id);
-        list.add_node(expr_r_node_id);
-        return Node::new_list(list);
-    } else if t.value == "==" {
-        inc_pos();
-        let expr_r_node_id = parse_expr();
-
-        let mut list = List::new();
-        list.add_str("eq");
-        list.add_node(expr_l_node_id);
-        list.add_node(expr_r_node_id);
-        return Node::new_list(list);
-    } else if t.value == "!=" {
-        inc_pos();
-        let expr_r_node_id = parse_expr();
-
-        let mut list = List::new();
-        list.add_str("neq");
-        list.add_node(expr_l_node_id);
-        list.add_node(expr_r_node_id);
-        return Node::new_list(list);
-    } else {
-        todo!("{:?}", t);
-    }
-}
-
 fn is_binary_op(t: &Token) -> bool {
     t.value == "+"
     || t.value == "*"
