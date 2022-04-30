@@ -89,7 +89,7 @@ test_json_nn() {
   echo "case ${nn}"
 
   local input_file="${TEST_COMMON_DIR}/json/${nn}.json"
-  local exp_tokens_file="${TEST_COMMON_DIR}/json/${nn}.json"
+  local exp_file="${TEST_COMMON_DIR}/json/${nn}.json"
 
   local temp_json_file="${TEMP_DIR}/test.json"
 
@@ -99,9 +99,9 @@ test_json_nn() {
     return
   fi
 
-  ruby ${TEST_COMMON_DIR}/diff.rb json $exp_tokens_file $temp_json_file
+  ruby ${TEST_COMMON_DIR}/diff.rb json $exp_file $temp_json_file
   if [ $? -ne 0 ]; then
-    # meld $exp_tokens_file $temp_json_file &
+    # meld $exp_file $temp_json_file &
 
     ERRS="${ERRS},json_${nn}_diff"
     return
@@ -124,7 +124,7 @@ test_lex_nn() {
   echo "case ${nn}"
 
   local input_file="${TEST_COMMON_DIR}/lex/${nn}.vg.txt"
-  local exp_tokens_file="${TEST_COMMON_DIR}/lex/exp_${nn}.txt"
+  local exp_file="${TEST_COMMON_DIR}/lex/exp_${nn}.txt"
 
   local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
 
@@ -134,9 +134,9 @@ test_lex_nn() {
     return
   fi
 
-  ruby ${TEST_COMMON_DIR}/diff.rb text $exp_tokens_file $temp_tokens_file
+  ruby ${TEST_COMMON_DIR}/diff.rb text $exp_file $temp_tokens_file
   if [ $? -ne 0 ]; then
-    # meld $exp_tokens_file $temp_tokens_file &
+    # meld $exp_file $temp_tokens_file &
 
     ERRS="${ERRS},lex_${nn}_diff"
     return
@@ -159,7 +159,7 @@ test_parse_nn() {
   echo "case ${nn}"
 
   local input_file="${TEST_COMMON_DIR}/parse/${nn}.vg.txt"
-  local exp_vgt_file="${TEST_COMMON_DIR}/parse/exp_${nn}.vgt.json"
+  local exp_file="${TEST_COMMON_DIR}/parse/exp_${nn}.vgt.json"
 
   local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
   local temp_vgt_file="${TEMP_DIR}/test.vgt.json"
@@ -179,9 +179,9 @@ test_parse_nn() {
     return
   fi
 
-  ruby ${TEST_COMMON_DIR}/diff.rb json $exp_vgt_file $temp_vgt_file
+  ruby ${TEST_COMMON_DIR}/diff.rb json $exp_file $temp_vgt_file
   if [ $? -ne 0 ]; then
-    # meld $exp_vgt_file $temp_vga_file &
+    # meld $exp_file $temp_vga_file &
 
     ERRS="${ERRS},parse_${nn}_diff"
     return
@@ -223,7 +223,7 @@ test_compile_nn() {
   fi
 
   local input_file="${TEST_COMMON_DIR}/compile/${nn}.vg.txt"
-  local exp_vga_file="${TEST_COMMON_DIR}/compile/exp_${nn}.vga.txt"
+  local exp_file="${TEST_COMMON_DIR}/compile/exp_${nn}.vga.txt"
 
   local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
   local temp_vgt_file="${TEMP_DIR}/test.vgt.json"
@@ -257,9 +257,9 @@ test_compile_nn() {
   fi
 
   if [ "$local_errs" = "" ]; then
-    ruby ${TEST_COMMON_DIR}/diff.rb asm $exp_vga_file $temp_vga_file
+    ruby ${TEST_COMMON_DIR}/diff.rb asm $exp_file $temp_vga_file
     if [ $? -ne 0 ]; then
-      # meld $exp_vga_file $temp_vga_file &
+      # meld $exp_file $temp_vga_file &
 
       ERRS="${ERRS},compile_${nn}_diff"
       return
