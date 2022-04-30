@@ -197,15 +197,11 @@ fn parse_expr() -> NodeId {
 
     let expr_l_node_id;
 
-    if t.value == "(" {
+    if t.kind == "sym" {
         consume("(");
         expr_l_node_id = parse_expr();
         consume(")");
-
-        return parse_expr_right(expr_l_node_id);
-    }
-
-    if t.kind == "int" {
+    } else if t.kind == "int" {
         inc_pos();
         let n: i32 = t.value.parse().unwrap();
         expr_l_node_id = Node::new_int(n);
