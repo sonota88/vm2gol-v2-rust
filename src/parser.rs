@@ -154,20 +154,23 @@ fn is_binary_op(t: &Token) -> bool {
 fn _parse_expr_factor() -> NodeId {
     let t = peek(0);
 
-    if t.kind == "sym" {
-        consume("(");
-        let expr = parse_expr();
-        consume(")");
-        return expr;
-    } else if t.kind == "int" {
-        inc_pos();
-        let n: i32 = t.value.parse().unwrap();
-        return Node::new_int(n);
-    } else if t.kind == "ident" {
-        inc_pos();
-        return Node::new_str(String::from(&t.value));
-    } else {
-        panic!("not supported: {:?}", t);
+    match t.kind.as_str() {
+        "sym" => {
+            consume("(");
+            let expr = parse_expr();
+            consume(")");
+            expr
+        },
+        "int" => {
+            inc_pos();
+            let n: i32 = t.value.parse().unwrap();
+            Node::new_int(n)
+        },
+        "ident" => {
+            inc_pos();
+            Node::new_str(String::from(&t.value))
+        },
+        _ => panic!("not supported: {:?}", t)
     }
 }
 
