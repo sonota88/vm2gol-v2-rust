@@ -219,6 +219,7 @@ test_compile_nn() {
     return
   fi
 
+  local input_file="${TEST_COMMON_DIR}/compile/${nn}.vg.txt"
   local temp_tokens_file="${TEMP_DIR}/test.tokens.txt"
   local temp_vgt_file="${TEMP_DIR}/test.vgt.json"
   local temp_vga_file="${TEMP_DIR}/test.vga.txt"
@@ -226,8 +227,7 @@ test_compile_nn() {
   local exp_vga_file="${TEST_COMMON_DIR}/compile/exp_${nn}.vga.txt"
 
   echo "  lex" >&2
-  run_lex ${TEST_COMMON_DIR}/compile/${nn}.vg.txt \
-    > $temp_tokens_file
+  run_lex $input_file > $temp_tokens_file
   if [ $? -ne 0 ]; then
     ERRS="${ERRS},${nn}_lex"
     local_errs="${local_errs},${nn}_lex"
