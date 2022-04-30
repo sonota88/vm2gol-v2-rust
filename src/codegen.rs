@@ -149,16 +149,6 @@ fn gen_expr(fn_arg_names: &List, lvar_names: &List, expr: &Node) {
     }
 }
 
-fn gen_var(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
-    println!("  sub_sp 1");
-
-    if stmt.size() == 3 {
-        let dest = stmt.get_str(1);
-        let expr = stmt.get(2);
-        _gen_set(fn_arg_names, lvar_names, dest, expr);
-    }
-}
-
 fn gen_call(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
     let fn_name = stmt.get_str(1);
     let fn_args = stmt.rest(2);
@@ -325,6 +315,16 @@ fn gen_stmts(fn_arg_names: &List, lvar_names: &List, stmts: &List) {
         let stmt = stmts.get_list(i);
         gen_stmt(fn_arg_names, lvar_names, stmt);
         i += 1;
+    }
+}
+
+fn gen_var(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
+    println!("  sub_sp 1");
+
+    if stmt.size() == 3 {
+        let dest = stmt.get_str(1);
+        let expr = stmt.get(2);
+        _gen_set(fn_arg_names, lvar_names, dest, expr);
     }
 }
 
