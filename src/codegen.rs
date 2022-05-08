@@ -251,7 +251,6 @@ fn gen_case(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
     let mut when_idx = -1;
 
     let label_end = format!("end_case_{}", label_id);
-    let label_when_head = format!("when_{}", label_id);
     let label_end_when_head = format!("end_when_{}", label_id);
 
     println!("");
@@ -270,9 +269,6 @@ fn gen_case(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
 
         println!("  compare");
         println!("  jump_eq {}_{}", label_end_when_head, when_idx);
-        println!("  jump {}_{}", label_when_head, when_idx);
-
-        println!("label {}_{}", label_when_head, when_idx);
 
         gen_stmts(fn_arg_names, lvar_names, &stmts);
 
