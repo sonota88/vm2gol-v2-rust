@@ -266,11 +266,11 @@ fn gen_case(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
 
         gen_expr(fn_arg_names, lvar_names, cond);
 
-        println!("  cp 1 reg_b");
+        println!("  cp 0 reg_b");
 
         println!("  compare");
-        println!("  jump_eq {}_{}", label_when_head, when_idx);
-        println!("  jump {}_{}", label_end_when_head, when_idx);
+        println!("  jump_eq {}_{}", label_end_when_head, when_idx);
+        println!("  jump {}_{}", label_when_head, when_idx);
 
         println!("label {}_{}", label_when_head, when_idx);
 
