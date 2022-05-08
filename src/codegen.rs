@@ -225,7 +225,6 @@ fn gen_while(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
 
     let label_begin = format!("while_{}", label_id);
     let label_end = format!("end_while_{}", label_id);
-    let label_true = format!("true_{}", label_id);
 
     println!("");
 
@@ -237,9 +236,7 @@ fn gen_while(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
     println!("  compare");
 
     println!("  jump_eq {}", label_end);
-    println!("  jump {}", label_true);
 
-    println!("label {}", label_true);
     gen_stmts(fn_arg_names, lvar_names, body);
 
     println!("  jump {}", label_begin);
