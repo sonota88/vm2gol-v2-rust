@@ -233,11 +233,11 @@ fn gen_while(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
 
     gen_expr(fn_arg_names, lvar_names, cond_expr);
 
-    println!("  cp 1 reg_b");
+    println!("  cp 0 reg_b");
     println!("  compare");
 
-    println!("  jump_eq {}", label_true);
-    println!("  jump {}", label_end);
+    println!("  jump_eq {}", label_end);
+    println!("  jump {}", label_true);
 
     println!("label {}", label_true);
     gen_stmts(fn_arg_names, lvar_names, body);
