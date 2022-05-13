@@ -184,7 +184,7 @@ fn parse_expr() -> NodeId {
             match peek(0).value.as_str() {
                 "+" => "+",
                 "*" => "*",
-                "==" => "eq",
+                "==" => "==",
                 "!=" => "neq",
                 _ => panic!("not supported: {:?}", peek(0))
             };
