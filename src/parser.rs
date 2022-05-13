@@ -185,7 +185,7 @@ fn parse_expr() -> NodeId {
                 "+" => "+",
                 "*" => "*",
                 "==" => "==",
-                "!=" => "neq",
+                "!=" => "!=",
                 _ => panic!("not supported: {:?}", peek(0))
             };
         incr_pos();

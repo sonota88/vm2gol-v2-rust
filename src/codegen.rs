@@ -122,7 +122,7 @@ fn _gen_expr_binary(fn_arg_names: &List, lvar_names: &List, list: &List) {
         "+"   => _gen_expr_add(),
         "*"   => _gen_expr_mult(),
         "=="  => _gen_expr_eq(),
-        "neq" => _gen_expr_neq(),
+        "!="  => _gen_expr_neq(),
         _ => panic!("unsupported: {:?}", list)
     }
 }
