@@ -302,6 +302,7 @@ fn parse_while() -> List {
 }
 
 fn _parse_when_clause() -> List {
+    consume("when");
     consume("(");
     let expr = parse_expr();
     consume(")");
@@ -320,15 +321,11 @@ fn _parse_when_clause() -> List {
 fn parse_case() -> List {
     consume("case");
 
-    consume("{");
-
     let mut when_clauses = List::new();
 
-    while peek(0).value != "}" {
+    while peek(0).value == "when" {
         when_clauses.add_list(_parse_when_clause());
     }
-
-    consume("}");
 
     let mut stmt = List::new();
     stmt.add_str("case");
