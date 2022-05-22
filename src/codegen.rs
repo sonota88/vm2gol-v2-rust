@@ -219,7 +219,7 @@ fn gen_return(lvar_names: &List, stmt: &List) {
 
 fn gen_while(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
     let cond_expr = stmt.get(1);
-    let body = stmt.get_list(2);
+    let stmts = stmt.get_list(2);
 
     let label_id = get_label_id();
 
@@ -237,7 +237,7 @@ fn gen_while(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
 
     println!("  jump_eq {}", label_end);
 
-    gen_stmts(fn_arg_names, lvar_names, body);
+    gen_stmts(fn_arg_names, lvar_names, stmts);
 
     println!("  jump {}", label_begin);
 
