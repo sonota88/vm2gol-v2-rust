@@ -183,12 +183,12 @@ fn parse_expr() -> NodeId {
         let op = peek(0).value.as_str();
         incr_pos();
 
-        let expr_r = _parse_expr_factor();
+        let factor = _parse_expr_factor();
 
         let mut list = List::new();
         list.add_str(op);
         list.add_node(expr);
-        list.add_node(expr_r);
+        list.add_node(factor);
 
         expr = Node::new_list(list);
     }
