@@ -211,10 +211,9 @@ fn gen_set(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
     _gen_set(fn_arg_names, lvar_names, dest, expr);
 }
 
-fn gen_return(lvar_names: &List, stmt: &List) {
-    let empty_list = List::new();
+fn gen_return(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
     let expr = stmt.get(1);
-    gen_expr(&empty_list, lvar_names, expr);
+    gen_expr(fn_arg_names, lvar_names, expr);
 }
 
 fn gen_while(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
@@ -298,7 +297,7 @@ fn gen_stmt(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
         "set" => gen_set(fn_arg_names, lvar_names, stmt),
         "call" => gen_call(fn_arg_names, lvar_names, stmt),
         "call_set" => gen_call_set(fn_arg_names, lvar_names, stmt),
-        "return" => gen_return(lvar_names, stmt),
+        "return" => gen_return(fn_arg_names, lvar_names, stmt),
         "while" => gen_while(fn_arg_names, lvar_names, stmt),
         "case" => gen_case(fn_arg_names, lvar_names, stmt),
         "_cmt" => gen_vm_comment(stmt),
