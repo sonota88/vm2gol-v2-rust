@@ -4,6 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends \
+    gcc \
+    gcc-multilib \
     ruby \
     rustup \
   && apt-get clean \
@@ -23,7 +25,7 @@ RUN groupadd ${user} \
 
 USER ${user}
 
-RUN rustup toolchain install 1.49.0
+RUN rustup toolchain install 1.82.0
 
 WORKDIR ${home}/work
 
