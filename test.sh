@@ -311,6 +311,8 @@ test_all() {
 
 # --------------------------------
 
+container_main() {
+
 setup
 
 # build
@@ -347,3 +349,18 @@ case $cmd in
     grep '#task: ' $0 | grep -v grep
     ;;
 esac
+
+}
+
+# --------------------------------
+
+in_container() {
+  env | grep --quiet IN_CONTAINER
+}
+
+if (in_container); then
+  container_main "$@"
+else
+  # Run in container
+  ./docker.sh run bash test.sh "$@"
+fi
