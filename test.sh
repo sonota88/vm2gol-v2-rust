@@ -312,44 +312,42 @@ test_all() {
 # --------------------------------
 
 container_main() {
+  setup
 
-setup
+  # build
 
-# build
+  cmd="$1"; shift
+  case $cmd in
+    json | j*)     #task: Run json tests
+      test_json "$@"
+      postproc "json"
+      ;;
 
-cmd="$1"; shift
-case $cmd in
-  json | j*)     #task: Run json tests
-    test_json "$@"
-    postproc "json"
-    ;;
+    lex | l*) #task: Run lex tests
+      test_lex "$@"
+      postproc "lex"
+      ;;
 
-  lex | l*) #task: Run lex tests
-    test_lex "$@"
-    postproc "lex"
-    ;;
+    parse | p*)    #task: Run parse tests
+      test_parse "$@"
+      postproc "parse"
+      ;;
 
-  parse | p*)    #task: Run parse tests
-    test_parse "$@"
-    postproc "parse"
-    ;;
+    compile | c*)  #task: Run compile tests
+      test_compile "$@"
+      postproc "compile"
+      ;;
 
-  compile | c*)  #task: Run compile tests
-    test_compile "$@"
-    postproc "compile"
-    ;;
+    all | a*)      #task: Run all tests
+      test_all
+      postproc "all"
+      ;;
 
-  all | a*)      #task: Run all tests
-    test_all
-    postproc "all"
-    ;;
-
-  *)
-    echo "Tasks:"
-    grep '#task: ' $0 | grep -v grep
-    ;;
-esac
-
+    *)
+      echo "Tasks:"
+      grep '#task: ' $0 | grep -v grep
+      ;;
+  esac
 }
 
 # --------------------------------
