@@ -4,7 +4,7 @@ https://memo88.hatenablog.com/entry/20210407_vm2gol_v2_rust
 
 ```
 $ rustc -V
-rustc 1.49.0 (e1884a8e3 2020-12-29)
+rustc 1.86.0 (05f9846f8 2025-03-31)
 ```
 
 
