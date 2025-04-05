@@ -22,30 +22,32 @@ MAX_ID_COMPILE=27
 
 ERRS=""
 
+readonly RUNNER_CMD=bin/mrclc
+
 export RUST_BACKTRACE=1
 
 run_test_json() {
   local infile="$1"; shift
 
-  cat $infile | $CARGO run test-json
+  cat $infile | $RUNNER_CMD test-json
 }
 
 run_lex() {
   local infile="$1"; shift
 
-  cat $infile | $CARGO run lex
+  cat $infile | $RUNNER_CMD lex
 }
 
 run_parse() {
   local infile="$1"; shift
 
-  cat $infile | $CARGO run parse
+  cat $infile | $RUNNER_CMD parse
 }
 
 run_codegen() {
   local infile="$1"; shift
 
-  cat $infile | $CARGO run codegen
+  cat $infile | $RUNNER_CMD codegen
 }
 
 # --------------------------------
@@ -56,7 +58,12 @@ setup() {
 }
 
 build() {
-  :
+  rake build
+  local status=$?
+  if [ $status -ne 0 ]; then
+    echo "build failed" >&2
+    exit $status
+  fi
 }
 
 postproc() {
@@ -314,7 +321,7 @@ test_all() {
 container_main() {
   setup
 
-  # build
+  build
 
   cmd="$1"; shift
   case $cmd in
