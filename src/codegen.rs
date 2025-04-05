@@ -316,7 +316,7 @@ fn gen_stmts(fn_arg_names: &List, lvar_names: &List, stmts: &List) {
 }
 
 fn gen_var(fn_arg_names: &List, lvar_names: &List, stmt: &List) {
-    println!("  sub_sp 1");
+    println!("  add_sp -1");
 
     if stmt.size() == 3 {
         let dest = stmt.get_str(1);
