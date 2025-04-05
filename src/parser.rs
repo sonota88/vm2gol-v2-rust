@@ -35,6 +35,7 @@ fn read_tokens() {
         let value = list.get_str(2);
 
         unsafe {
+            #[allow(static_mut_refs)]
             TOKENS.push(Token::new(kind, value));
         }
 
@@ -56,6 +57,7 @@ fn incr_pos() {
     }
 }
 
+#[allow(static_mut_refs)]
 fn is_end() -> bool {
     unsafe {
         TOKENS.len() <= POS

@@ -25,7 +25,7 @@ RUN groupadd ${user} \
 
 USER ${user}
 
-RUN rustup toolchain install 1.82.0
+RUN rustup toolchain install 1.83.0
 
 WORKDIR ${home}/work
 

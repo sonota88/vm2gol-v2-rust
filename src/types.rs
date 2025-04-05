@@ -42,6 +42,7 @@ impl Node {
 
         unsafe {
             NODE_ID_MAX += 1;
+            #[allow(static_mut_refs)]
             NODES.push(node);
         }
 
