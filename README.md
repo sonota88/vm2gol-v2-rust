@@ -1,4 +1,6 @@
-素朴な自作言語のコンパイラをRustに移植した - memo88  
+Rust port of [Mini Ruccola (vm2gol-v2)](https://github.com/sonota88/vm2gol-v2) compiler
+
+素朴な自作言語のコンパイラをRustに移植した  
 https://memo88.hatenablog.com/entry/20210407_vm2gol_v2_rust
 
 
