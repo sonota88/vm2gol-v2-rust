@@ -1,5 +1,5 @@
 [package]
-name = "vm2gol-v2"
+name = "mini-ruccola"
 version = "0.1.0"
 authors = ["sonota88"]
 edition = "2021"

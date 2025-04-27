@@ -14,5 +14,5 @@ deps << "Cargo.toml"
 file "bin/mrclc" => deps do
   sh "cargo build"
   sh "mkdir -p bin"
-  sh "cp target/debug/vm2gol-v2 bin/mrclc"
+  sh "cp target/debug/mini-ruccola bin/mrclc"
 end
